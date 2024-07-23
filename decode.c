@@ -4,7 +4,7 @@
 #include <stdint.h>
 #include <stdlib.h>
 
-typedef uint8_t byte;
+typedef uint8_t u8;
 
 const char *reg_names[2][8] = {
                                  {"al", "cl", "dl", "bl", "ah", "ch", "dh", "bh"},
