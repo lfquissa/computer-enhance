@@ -19,20 +19,18 @@ int main(int argc, char * argv[])
         exit(1);
     }
 
-    byte buffer[2];
+    u8 buffer[2];
     FILE * f = fopen(argv[1], "r");
 
-    while (!feof(f))
+    while (fread(buffer, sizeof(char), sizeof(buffer), f) == sizeof(buffer))
     {
-        if (fread(buffer, sizeof(char), sizeof(buffer), f) != sizeof(buffer))
-            break;
-        byte opcode = buffer[0] & 0b11111100;
-        opcode = opcode >> 2;
-        byte d   = (buffer[0] & 0b10 ) >> 1;
-        byte w   = (buffer[0] & 0b1  );
-        byte mod = (buffer[1] & 0b11000000) >> 6;
-        byte reg = (buffer[1] & 0b00111000) >> 3;
-        byte r_m = (buffer[1] & 0b00000111);
+        u8 opcode = (buffer[0] & 0b11111100) >> 2;
+        u8 d   = (buffer[0] & 0b10 ) >> 1;
+        u8 w   = (buffer[0] & 0b1  );
+        u8 mod = (buffer[1] & 0b11000000) >> 6;
+        (void) mod;
+        u8 reg = (buffer[1] & 0b00111000) >> 3;
+        u8 r_m = (buffer[1] & 0b00000111);
 
         if (opcode == 0b100010)
         {
